@@ -1,4 +1,14 @@
 <resources>
+
+    <!-- Meli SDK configs-->
+    <string name="meli_app_id">7342654303840979</string>
+    <string name="meli_redirect_uri">https://www.mercadolibre.com.ar/</string>
+
     <string name="app_name">MiMeliApp</string>
     <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="userName">User Name</string>
+
+    <string name="username_error">Username cannot be empty</string>
+    <string name="password_error">Password cannot be empty</string>
 </resources>

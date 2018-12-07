@@ -1,14 +1,22 @@
 package com.example.gtachantouria.mimeliapp.Login;
 
+import com.example.gtachantouria.mimeliapp.rest.event.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 public class Login {
-    private String password = "", email = "";
+    EventBus bus = EventBus.getDefault();
+
+    private String password = "", username = "";
 
     public Login() {
     }
 
     public Login(String fullName, String email) {
         this.password = fullName;
-        this.email = email;
+        this.username = email;
     }
 
     public String getPassword() {
@@ -19,11 +27,16 @@ public class Login {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void sentMessageEvent(){
+        String message =  "Username : " + this.username + "\nPass : " + this.password;
+        bus.post(new MessageEvent(message));
     }
 }

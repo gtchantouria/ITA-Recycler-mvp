@@ -4,53 +4,64 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.example.gtachantouria.mimeliapp.List.ProductListActivity;
 import com.example.gtachantouria.mimeliapp.R;
 
-public class LoginActivity extends AppCompatActivity implements LoginPresenter.View {
-    private Button mButton;
-    private LoginPresenter mPresenter;
-    private TextView mEmail;
-    private TextView mPassword;
-    private TextView mErrors;
-
-    private View.OnClickListener loginListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(), ProductListActivity.class);
-            startActivity(intent);
-        }
-    };
+public class LoginActivity extends AppCompatActivity implements LoginView {
+    private ProgressBar progressBar;
+    private EditText username;
+    private EditText password;
+    private LoginPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Presenter
-        mPresenter = new LoginPresenter(this);
+        progressBar = findViewById(R.id.progress);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        findViewById(R.id.button).setOnClickListener(v -> validateCredentials());
 
-        //Views (User, Email)
-        mEmail = findViewById(R.id.et_email);
-        mPassword = findViewById(R.id.et_password);
-        mErrors = findViewById(R.id.tv_errors);
-
-        //Set Login data.
-        mPresenter.updateEmail(mEmail.getText().toString());
-        mPresenter.updatePassword(mPassword.getText().toString());
-
-        //Button sets
-        mButton = findViewById(R.id.btn_login);
-        mButton.setOnClickListener(loginListener);
+        presenter = new LoginPresenter(this, new LoginHelper());
     }
 
     @Override
-    public void validarLogin() {
-        if(!mPresenter.checkLogin(mEmail.getText().toString(), mPassword.getText().toString())){
-            mErrors.setText("User or pass incrorrect!!");
-        }
+    protected void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setUsernameError() {
+        username.setError(getString(R.string.username_error));
+    }
+
+    @Override
+    public void setPasswordError() {
+        password.setError(getString(R.string.password_error));
+    }
+
+    @Override
+    public void navigateToHome() {
+        startActivity(new Intent(this, ProductListActivity.class));
+        finish();
+    }
+
+    private void validateCredentials() {
+        presenter.validateCredentials(username.getText().toString(), password.getText().toString());
     }
 }

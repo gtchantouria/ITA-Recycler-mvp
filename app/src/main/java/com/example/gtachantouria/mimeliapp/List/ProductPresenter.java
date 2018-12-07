@@ -1,15 +1,20 @@
 package com.example.gtachantouria.mimeliapp.List;
 
-import java.util.List;
+import android.util.Log;
+
+import com.example.gtachantouria.mimeliapp.rest.model.ItemList;
+import com.example.gtachantouria.mimeliapp.rest.service.MeliService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductPresenter {
 
     private ProductView mProductView;
-    private ProductHelper helper;
 
-    public ProductPresenter(ProductView view, ProductHelper helper){
+    public ProductPresenter(ProductView view){
         this.mProductView = view;
-        this.helper = helper;
     }
 
     void onResume() {
@@ -17,12 +22,34 @@ public class ProductPresenter {
             mProductView.showProgress();
         }
 
-        helper.findItems(this::onSuccess);
+        this.onSuccess();
     }
 
-    public void onSuccess(List<Product> list) {
+    public void onSuccess() {
         if(mProductView != null) {
-            mProductView.setItems(list);
+
+            MeliService.getInstance().getItemsByQuery("ipod", new Callback<ItemList>() {
+                @Override
+                public void onResponse(Call<ItemList> call, Response<ItemList> response) {
+                    if(response.isSuccessful()){
+                        ItemList itemList = response.body();
+                        mProductView.setItems(itemList);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ItemList> call, Throwable t) {
+                    t.printStackTrace();
+                    Throwable cause = t.getCause();
+                    if(cause != null){
+                        Log.d("Error getItemsByQuery", cause.getMessage());
+                    }
+                    else {
+                        Log.d("Error no manejado", t.getMessage());
+                    }
+                }
+            });
+
             mProductView.hideProgress();
         }
     }

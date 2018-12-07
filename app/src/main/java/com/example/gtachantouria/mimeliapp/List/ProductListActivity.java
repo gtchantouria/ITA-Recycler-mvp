@@ -2,20 +2,16 @@ package com.example.gtachantouria.mimeliapp.List;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.example.gtachantouria.mimeliapp.R;
-
-import java.util.List;
+import com.example.gtachantouria.mimeliapp.rest.model.ItemList;
 
 public class ProductListActivity extends AppCompatActivity implements ProductView {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private ProductPresenter mPresenter;
     private ProgressBar mProgressBar;
 
@@ -24,9 +20,9 @@ public class ProductListActivity extends AppCompatActivity implements ProductVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_list);
-        mProgressBar = (ProgressBar) findViewById(R.id.pb_bar);
-        mPresenter = new ProductPresenter(this, new ProductHelper());
+        mRecyclerView = findViewById(R.id.rv_list);
+        mProgressBar = findViewById(R.id.pb_bar);
+        mPresenter = new ProductPresenter(this);
     }
 
 
@@ -55,7 +51,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductVie
     }
 
     @Override
-    public void setItems(List<Product> items) {
+    public void setItems(ItemList items) {
         mRecyclerView.setAdapter(new ProductAdapter(items));
     }
 }
