@@ -10,13 +10,9 @@ import android.widget.TextView;
 
 import com.example.gtachantouria.mimeliapp.R;
 import com.example.gtachantouria.mimeliapp.rest.model.ItemList;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import org.w3c.dom.Text;
-
-import java.util.List;
+import java.text.NumberFormat;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.productHolder> {
     private ItemList list;
@@ -38,9 +34,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.productH
 
     @Override
     public void onBindViewHolder(@NonNull productHolder vh, int i) {
-        vh.mTextView.setText(list.items.get(i).title);
+        vh.mTitle.setText(list.items.get(i).title);
+        vh.mPrice.setText(String.format(NumberFormat.getCurrencyInstance().format(list.items.get(i).price)));
+
         Uri uri = Uri.parse(list.items.get(i).image);
-        vh.mDraweeView.setImageURI(uri);
+        vh.mImage.setImageURI(uri);
     }
 
     @Override
@@ -50,13 +48,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.productH
 
 
     public class productHolder extends RecyclerView.ViewHolder {
-        public TextView mTextView;
-        SimpleDraweeView mDraweeView;
+        public TextView mTitle;
+        public TextView mPrice;
+        public SimpleDraweeView mImage;
 
         public productHolder(@NonNull View itemView) {
             super(itemView);
-            mTextView = (TextView) itemView.findViewById(R.id.tv_product);
-            mDraweeView = (SimpleDraweeView) itemView.findViewById(R.id.my_image_view);
+            mTitle = itemView.findViewById(R.id.tv_product);
+            mImage = itemView.findViewById(R.id.image);
+            mPrice = itemView.findViewById(R.id.tv_price);
         }
     }
 }
