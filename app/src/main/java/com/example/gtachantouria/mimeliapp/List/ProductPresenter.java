@@ -7,12 +7,27 @@ public class ProductPresenter {
     private ProductView mProductView;
     private ProductHelper helper;
 
-    public ProductPresenter(ProductView view){
+    public ProductPresenter(ProductView view, ProductHelper helper){
         this.mProductView = view;
-        helper =  new ProductHelper();
+        this.helper = helper;
     }
 
-    public List<Product> getProductList() {
-        return helper.getList();
+    void onResume() {
+        if (mProductView != null) {
+            mProductView.showProgress();
+        }
+
+        helper.findItems(this::onSuccess);
+    }
+
+    public void onSuccess(List<Product> list) {
+        if(mProductView != null) {
+            mProductView.setItems(list);
+            mProductView.hideProgress();
+        }
+    }
+
+    void onDestroy() {
+        mProductView = null;
     }
 }

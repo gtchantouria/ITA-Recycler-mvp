@@ -4,7 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.gtachantouria.mimeliapp.R;
 
@@ -16,27 +17,45 @@ public class ProductListActivity extends AppCompatActivity implements ProductVie
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ProductPresenter mPresenter;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        mPresenter = new ProductPresenter(this);
-        setRecycler();
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_list);
+        mProgressBar = (ProgressBar) findViewById(R.id.pb_bar);
+        mPresenter = new ProductPresenter(this, new ProductHelper());
     }
 
-    private void setRecycler(){
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_list);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new ProductAdapter(mPresenter.getProductList());
-        mRecyclerView.setAdapter(mAdapter);
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.onResume();
     }
 
     @Override
-    public List<Product> showProducts() {
-        Log.d("LOG", "test");
-       return mPresenter.getProductList();
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.onDestroy();
+    }
+
+    @Override
+    public void showProgress() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mProgressBar.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setItems(List<Product> items) {
+        mRecyclerView.setAdapter(new ProductAdapter(items));
     }
 }
