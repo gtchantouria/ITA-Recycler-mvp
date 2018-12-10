@@ -4,11 +4,16 @@
     <string name="meli_app_id">7342654303840979</string>
     <string name="meli_redirect_uri">https://www.mercadolibre.com.ar/</string>
 
-    <string name="app_name">MiMeliApp</string>
+    <string name="app_name">Meli App</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="userName">User Name</string>
 
     <string name="username_error">Username cannot be empty</string>
     <string name="password_error">Password cannot be empty</string>
+    <string name="ubication">Ubicación</string>
+    <string name="comprar">Comprar</string>
+
+    <string name="filter_meli_link"></string>
+    <string name="search_anything">Buscar...</string>
 </resources>

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.example.gtachantouria.mimeliapp.List.ProductListActivity;
+import com.example.gtachantouria.mimeliapp.ItemsList.ProductListActivity;
 import com.example.gtachantouria.mimeliapp.R;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {

@@ -1,5 +1,6 @@
 package com.example.gtachantouria.mimeliapp.rest.service;
 
+import com.example.gtachantouria.mimeliapp.rest.model.Item;
 import com.example.gtachantouria.mimeliapp.rest.model.ItemList;
 
 import retrofit2.Callback;
@@ -31,5 +32,9 @@ public class MeliService {
 
     public void getItemsByQuery(String query, Callback<ItemList> callback){
         iMeliService.getItemsByQuery(query).enqueue(callback);
+    }
+
+    public void getItemByID(String id, Callback<Item> callback) {
+        iMeliService.getItemById(id).enqueue(callback);
     }
 }

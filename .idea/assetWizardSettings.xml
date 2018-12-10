@@ -16,9 +16,24 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="jar:file:/private/var/folders/tm/l8yr49ks5wx3_674l02f4qgn_kd3v0/T/AppTranslocation/149A9C35-374A-4108-B479-879F89781A46/d/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/communication/ic_location_on_black_24dp.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_android_default" />
+                            <entry key="outputName" value="ic_location" />
                             <entry key="sourceFile" value="$USER_HOME$" />
                           </map>
                         </option>

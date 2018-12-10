@@ -1,7 +1,9 @@
-package com.example.gtachantouria.mimeliapp.List;
+package com.example.gtachantouria.mimeliapp.ItemsList;
 
+import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.gtachantouria.mimeliapp.rest.model.Item;
 import com.example.gtachantouria.mimeliapp.rest.model.ItemList;
 import com.example.gtachantouria.mimeliapp.rest.service.MeliService;
 
@@ -9,7 +11,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductPresenter {
+public class ProductPresenter implements RecyclerItemClickListener {
 
     private ProductView mProductView;
 
@@ -17,18 +19,12 @@ public class ProductPresenter {
         this.mProductView = view;
     }
 
-    void onResume() {
-        if (mProductView != null) {
-            mProductView.showProgress();
-        }
-
-        this.onSuccess();
-    }
-
-    public void onSuccess() {
+    public void getItemsByQuery(String query) {
         if(mProductView != null) {
+            mProductView.showProgress();
+            String toSearch = TextUtils.isEmpty(query) ? "ipod" : query;
 
-            MeliService.getInstance().getItemsByQuery("ipod", new Callback<ItemList>() {
+            MeliService.getInstance().getItemsByQuery(toSearch, new Callback<ItemList>() {
                 @Override
                 public void onResponse(Call<ItemList> call, Response<ItemList> response) {
                     if(response.isSuccessful()){
@@ -56,5 +52,10 @@ public class ProductPresenter {
 
     void onDestroy() {
         mProductView = null;
+    }
+
+    @Override
+    public void onItemClickListener(String id) {
+        mProductView.setItemSelected(id);
     }
 }

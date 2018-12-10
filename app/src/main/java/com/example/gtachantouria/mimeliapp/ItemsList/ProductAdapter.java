@@ -1,4 +1,4 @@
-package com.example.gtachantouria.mimeliapp.List;
+package com.example.gtachantouria.mimeliapp.ItemsList;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -15,10 +15,12 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.text.NumberFormat;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.productHolder> {
-    private ItemList list;
+    private ItemList mList;
+    private RecyclerItemClickListener mListener;
 
-    public ProductAdapter(ItemList data) {
-        list = data;
+    public ProductAdapter(ItemList data, RecyclerItemClickListener listener) {
+        this.mList = data;
+        this.mListener = listener;
     }
 
     @NonNull
@@ -34,20 +36,20 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.productH
 
     @Override
     public void onBindViewHolder(@NonNull productHolder vh, int i) {
-        vh.mTitle.setText(list.items.get(i).title);
-        vh.mPrice.setText(String.format(NumberFormat.getCurrencyInstance().format(list.items.get(i).price)));
+        vh.mTitle.setText(mList.items.get(i).title);
+        vh.mPrice.setText(String.format(NumberFormat.getCurrencyInstance().format(mList.items.get(i).price)));
 
-        Uri uri = Uri.parse(list.items.get(i).image);
+        Uri uri = Uri.parse(mList.items.get(i).image);
         vh.mImage.setImageURI(uri);
     }
 
     @Override
     public int getItemCount() {
-        return list  == null ? 0 : list.items.size();
+        return mList == null ? 0 : mList.items.size();
     }
 
 
-    public class productHolder extends RecyclerView.ViewHolder {
+    public class productHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView mTitle;
         public TextView mPrice;
         public SimpleDraweeView mImage;
@@ -57,6 +59,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.productH
             mTitle = itemView.findViewById(R.id.tv_product);
             mImage = itemView.findViewById(R.id.image);
             mPrice = itemView.findViewById(R.id.tv_price);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            mListener.onItemClickListener(mList.items.get(position).id);
         }
     }
 }

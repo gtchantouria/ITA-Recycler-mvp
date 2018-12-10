@@ -1,4 +1,4 @@
-package com.example.gtachantouria.mimeliapp.List;
+package com.example.gtachantouria.mimeliapp.ItemsList;
 
 public class Product {
     private String name;

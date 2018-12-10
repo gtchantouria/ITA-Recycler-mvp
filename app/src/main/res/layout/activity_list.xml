@@ -4,19 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".List.ProductListActivity">
+    tools:context=".ItemsList.ProductListActivity"
+    tools:layout_editor_absoluteY="81dp">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_list"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+        android:layout_height="match_parent">
+
+        <SearchView
+            android:id="@+id/sv_search"
+            app:queryHint="@string/search_anything"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:tooltipText="Grilla"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+    </LinearLayout>
+
 
     <ProgressBar
         android:id="@+id/pb_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:visibility="gone" />
+        android:foregroundGravity="center"
+        android:visibility="invisible" />
 
 </android.support.constraint.ConstraintLayout>

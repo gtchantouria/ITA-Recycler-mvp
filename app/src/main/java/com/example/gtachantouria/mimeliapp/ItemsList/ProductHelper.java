@@ -1,4 +1,4 @@
-package com.example.gtachantouria.mimeliapp.List;
+package com.example.gtachantouria.mimeliapp.ItemsList;
 
 import android.os.Handler;
 

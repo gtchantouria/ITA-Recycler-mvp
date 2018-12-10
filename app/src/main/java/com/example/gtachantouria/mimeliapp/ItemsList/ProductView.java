@@ -1,13 +1,10 @@
-package com.example.gtachantouria.mimeliapp.List;
-
+package com.example.gtachantouria.mimeliapp.ItemsList;
 import com.example.gtachantouria.mimeliapp.rest.model.ItemList;
-
-import java.util.List;
 
 public interface ProductView {
     void showProgress();
     void hideProgress();
-    //void setItems(List<Product> items);
     void setItems(ItemList items);
+    void setItemSelected(String id);
 }
 
