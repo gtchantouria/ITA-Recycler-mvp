@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".Login.LoginActivity" />
-        <activity android:name=".ItemsList.ProductListActivity">
+        <activity android:name=".ItemsList.ProductListActivity" android:parentActivityName=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,10 +28,10 @@
 
                 <!-- Accepts URIs that begin with "https://www.mercadolibre.com.ar” -->
                 <data android:scheme="meli://"
-                    android:host="search"/>
+                    android:host="/search/"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ItemDetails.ItemActivity"></activity>
+        <activity android:name=".ItemDetails.ItemActivity" android:parentActivityName=".ItemsList.ProductListActivity" />
     </application>
 
 </manifest>

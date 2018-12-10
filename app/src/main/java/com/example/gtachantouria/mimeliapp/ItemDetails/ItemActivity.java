@@ -1,6 +1,7 @@
 package com.example.gtachantouria.mimeliapp.ItemDetails;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gtachantouria.mimeliapp.R;
 import com.example.gtachantouria.mimeliapp.rest.model.Images;
@@ -77,5 +79,17 @@ public class ItemActivity extends AppCompatActivity implements ItemView {
 
         mDescription.setText(item.title);
         mPrice.setText(String.format("$ %s", Double.toString(item.price)));
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+        }
     }
 }
