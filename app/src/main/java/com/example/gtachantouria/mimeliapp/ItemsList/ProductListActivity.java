@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.gtachantouria.mimeliapp.ItemDetails.ItemActivity;
 import com.example.gtachantouria.mimeliapp.R;
 import com.example.gtachantouria.mimeliapp.rest.model.ItemList;
+import com.mercadolibre.android.ui.widgets.MeliSpinner;
 
 public class ProductListActivity extends AppCompatActivity implements ProductView {
 
@@ -25,7 +26,8 @@ public class ProductListActivity extends AppCompatActivity implements ProductVie
 
     private RecyclerView mRecyclerView;
     private ProductPresenter mPresenter;
-    private ProgressBar mProgressBar;
+    //private ProgressBar mProgressBar;
+    private MeliSpinner mProgressBar;
     private SearchView mSearchView;
 
     private String queryToSearch;

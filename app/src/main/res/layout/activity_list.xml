@@ -28,11 +28,19 @@
     </LinearLayout>
 
 
-    <ProgressBar
+   <!-- <ProgressBar
         android:id="@+id/pb_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:visibility="gone" />-->
+
+    <com.mercadolibre.android.ui.widgets.MeliSpinner
+        android:id="@+id/pb_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:size="large"
+        app:spinnerText="Loading"
         android:visibility="gone" />
 
 </android.support.constraint.ConstraintLayout>

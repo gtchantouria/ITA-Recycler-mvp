@@ -3,8 +3,18 @@
 buildscript {
     
     repositories {
+        maven {
+            url 'http://maven-mobile.melicloud.com/nexus/content/repositories/releases'
+            //url "https://dl.bintray.com/mercadolibre/android-releases"
+        }
+
+        flatDir {
+            dirs 'aars'
+        }
+
         google()
         jcenter()
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
