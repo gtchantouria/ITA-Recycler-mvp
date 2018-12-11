@@ -5,4 +5,5 @@ import com.example.gtachantouria.mimeliapp.rest.model.Item;
 public interface ItemView {
     void getItemByID(String id);
     void setItem(Item item);
+    void navigateToSeller(String link);
 }

@@ -15,6 +15,7 @@ import com.example.gtachantouria.mimeliapp.R;
 import com.example.gtachantouria.mimeliapp.rest.model.Images;
 import com.example.gtachantouria.mimeliapp.rest.model.Item;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.mercadolibre.android.ui.widgets.MeliButton;
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -23,10 +24,12 @@ import java.util.List;
 
 public class ItemActivity extends AppCompatActivity implements ItemView {
     private final String LOG_ID = ItemActivity.class.getName();
+    private final String SELLER_ID = "Seller_ID";
     private ItemPresenter mPresenter;
 
     private List<Images> mPictures;
     private CarouselView mCarousel;
+    private MeliButton mMeliButton;
     private TextView mDescription, mPrice;
 
     @Override
@@ -57,6 +60,14 @@ public class ItemActivity extends AppCompatActivity implements ItemView {
         setItemDetails(item);
     }
 
+    @Override
+    public void navigateToSeller(String link) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(link));
+        startActivity(intent);
+    }
+
     ImageListener imageListener = new ImageListener() {
         @Override
         public void setImageForPosition(int position, ImageView imageView) {
@@ -74,11 +85,17 @@ public class ItemActivity extends AppCompatActivity implements ItemView {
         mCarousel.setImageListener(imageListener);
         mCarousel.setPageCount(mPictures.size());
 
+        findViewById(R.id.btn_comprar).setOnClickListener(v -> validateCredentials(item.seller_id));
+
         mDescription = findViewById(R.id.tv_description);
         mPrice = findViewById(R.id.tv_price);
 
         mDescription.setText(item.title);
         mPrice.setText(String.format("$ %s", Double.toString(item.price)));
+    }
+
+    private void validateCredentials(String seller_id) {
+        mPresenter.navigateToSeller(seller_id);
     }
 
     @Override

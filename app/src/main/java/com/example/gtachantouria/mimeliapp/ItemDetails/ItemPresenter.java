@@ -10,19 +10,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ItemPresenter {
-    private ItemView mItemView;
+    private ItemView mView;
 
     public ItemPresenter(ItemView view) {
-        this.mItemView = view;
+        this.mView = view;
     }
 
     public void getItemByID(String id) {
-        if(mItemView != null) {
+        if(mView != null) {
             MeliService.getInstance().getItemByID(id, new Callback<Item>() {
                 @Override
                 public void onResponse(Call<Item> call, Response<Item> response) {
                     if(response.isSuccessful()){
-                        mItemView.setItem(response.body());
+                        mView.setItem(response.body());
                     }
                 }
 
@@ -38,6 +38,12 @@ public class ItemPresenter {
                     }
                 }
             });
+        }
+    }
+
+    public void navigateToSeller(String sellerID) {
+        if(mView != null) {
+            mView.navigateToSeller("ml://vervendedor/" + sellerID);
         }
     }
 }

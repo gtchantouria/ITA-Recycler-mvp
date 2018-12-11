@@ -48,7 +48,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
             <com.mercadolibre.android.ui.widgets.MeliButton
-                android:id="@+id/action_enabled_button"
+                android:id="@+id/btn_comprar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/comprar" />

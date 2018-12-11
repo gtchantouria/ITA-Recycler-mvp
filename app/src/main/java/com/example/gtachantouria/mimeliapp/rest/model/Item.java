@@ -21,4 +21,7 @@ public class Item {
 
     @SerializedName("permalink")
     public String linkToMeli;
+
+    @SerializedName("seller_id")
+    public String seller_id;
 }
