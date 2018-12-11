@@ -96,7 +96,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductVie
 
     @Override
     public void setItemSelected(String id) {
-        //TODO Starts new activity sending Item id as parameter...
         Bundle bundle = new Bundle();
         bundle.putString("ItemID", id);
 

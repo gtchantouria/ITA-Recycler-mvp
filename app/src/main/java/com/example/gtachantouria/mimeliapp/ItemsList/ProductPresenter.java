@@ -27,17 +27,19 @@ public class ProductPresenter implements RecyclerItemClickListener {
             MeliService.getInstance().getItemsByQuery(toSearch, new Callback<ItemList>() {
                 @Override
                 public void onResponse(Call<ItemList> call, Response<ItemList> response) {
-                    if(response.isSuccessful()){
+                    if(response.isSuccessful()) {
                         ItemList itemList = response.body();
                         mProductView.setItems(itemList);
+                        mProductView.hideProgress();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ItemList> call, Throwable t) {
+                    mProductView.hideProgress();
                     t.printStackTrace();
                     Throwable cause = t.getCause();
-                    if(cause != null){
+                    if(cause != null) {
                         Log.d("Error getItemsByQuery", cause.getMessage());
                     }
                     else {
@@ -45,8 +47,6 @@ public class ProductPresenter implements RecyclerItemClickListener {
                     }
                 }
             });
-
-            mProductView.hideProgress();
         }
     }
 
