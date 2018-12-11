@@ -69,6 +69,9 @@ dependencies {
     implementation 'com.synnapps:carouselview:0.1.4'
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    //To communicate with the SellerModule
+    implementation project(':sellermodule')
+
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.15.0'
 
