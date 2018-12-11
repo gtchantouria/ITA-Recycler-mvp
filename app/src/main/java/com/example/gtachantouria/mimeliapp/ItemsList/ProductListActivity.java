@@ -19,18 +19,24 @@ import com.example.gtachantouria.mimeliapp.rest.model.ItemList;
 
 public class ProductListActivity extends AppCompatActivity implements ProductView {
 
-    private final String SP = "mySharedPref";
+    private final String SHARED_PREFERENCES = "com.example.gtachantouria.mimeliapp";
+    private final String QUERY_TO_SEARCH = "QUERY_TO_SEARCH";
+    private SharedPreferences mPreferences;
+
     private RecyclerView mRecyclerView;
     private ProductPresenter mPresenter;
     private ProgressBar mProgressBar;
     private SearchView mSearchView;
 
-    private SharedPreferences mPreferences;
+    private String queryToSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        mPreferences =  getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        queryToSearch = mPreferences.getString(QUERY_TO_SEARCH, "ipod");
 
         setViews();
     }
@@ -40,29 +46,24 @@ public class ProductListActivity extends AppCompatActivity implements ProductVie
         mProgressBar = findViewById(R.id.pb_bar);
         mPresenter = new ProductPresenter(this);
         mSearchView = findViewById(R.id.sv_search);
+        mSearchView.setQuery(queryToSearch, true);
 
-        SharedPreferences sp = getSharedPreferences(SP, MODE_PRIVATE);
-        String test = sp.getString("QueryToSearch", "");
-        if(!TextUtils.isEmpty(test)) {
-            mSearchView.setQuery(test, true);
-        } else {
-            mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    SharedPreferences sharedPref =  getSharedPreferences(SP, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("QueryToSearch", query);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putString(QUERY_TO_SEARCH, query);
+                editor.apply();
 
-                    mPresenter.getItemsByQuery(query);
-                    return false;
-                }
+                mPresenter.getItemsByQuery(query);
+                return false;
+            }
 
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    return false;
-                }
-            });
-        }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     @Override
