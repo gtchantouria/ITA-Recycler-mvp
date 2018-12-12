@@ -12,6 +12,7 @@ apply plugin: 'maven-publish'
 bintray {
     user = 'gtchantouria'
     key = 'd0f97f34822601dc117d3fc661ca80e7ab67fed1'
+    configurations = ['archives']
     publications = ['MyPublication']
     pkg {
         repo = 'IASellerModule'
@@ -24,10 +25,38 @@ bintray {
 publishing {
     publications {
         MyPublication(MavenPublication) {
-            groupId 'com.github.gtchantouria'
-            artifactId 'ITA-Recycler-mvp'
-            version '1.0.0'
+            artifactId 'sellermodule'
+            version project.property('version')
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'Seller Module')
+                root.appendNode('name', 'seller')
+                root.appendNode('url', 'https://github.com/gtchantouria/ITA-Recycler-mvp.git')
+                root.children().last() + pomConfig
+            }
         }
+    }
+}
+
+// Create the pom configuration:
+def pomConfig = {
+    licenses {
+        license {
+            name "The Apache Software License, Version 2.0"
+            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            id "gtchantouria"
+            name "Guillermo Tchantouria"
+            email "guillermo.tchantouria@gmail.com"
+        }
+    }
+
+    scm {
+        url "https://github.com/gtchantouria/ITA-Recycler-mvp.git"
     }
 }
 
