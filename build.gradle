@@ -3,17 +3,16 @@
 buildscript {
     
     repositories {
+        google()
+        jcenter()
+
         maven {
             url 'http://maven-mobile.melicloud.com/nexus/content/repositories/releases'
-            //url "https://dl.bintray.com/mercadolibre/android-releases"
         }
 
         flatDir {
             dirs 'aars'
         }
-
-        google()
-        jcenter()
 
     }
     dependencies {
