@@ -22,22 +22,6 @@ bintray {
     }
 }
 
-publishing {
-    publications {
-        MyPublication(MavenPublication) {
-            artifactId 'sellermodule'
-            version project.property('version')
-            pom.withXml {
-                def root = asNode()
-                root.appendNode('description', 'Seller Module')
-                root.appendNode('name', 'seller')
-                root.appendNode('url', 'https://github.com/gtchantouria/ITA-Recycler-mvp.git')
-                root.children().last() + pomConfig
-            }
-        }
-    }
-}
-
 // Create the pom configuration:
 def pomConfig = {
     licenses {
@@ -57,6 +41,23 @@ def pomConfig = {
 
     scm {
         url "https://github.com/gtchantouria/ITA-Recycler-mvp.git"
+    }
+}
+
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            artifactId 'sellermodule'
+            version project.property('version')
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'Seller Module')
+                root.appendNode('name', 'seller')
+                root.appendNode('url', 'https://github.com/gtchantouria/ITA-Recycler-mvp.git')
+                root.children().last() + pomConfig
+            }
+        }
     }
 }
 
